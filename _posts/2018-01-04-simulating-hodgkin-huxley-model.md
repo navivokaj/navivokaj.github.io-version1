@@ -10,4 +10,4 @@ $$ a^2 + b^2 = c^2 $$
 
 $$ \mathbf{X}\_{n,p} = \mathbf{A}\_{n,k} \mathbf{B}\_{k,p} $$
 
-I will study how to use MathJax so that equations will appear in this blog elegantly.
+I am currently studying how to use MathJax so that equations will appear in this blog elegantly.
