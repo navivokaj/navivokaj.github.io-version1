@@ -41,3 +41,10 @@ ul.posts {
 ul.posts li {
     list-style: none;
 }
+
+.module-header {
+  font-size: 24px;
+  color: #8C1515;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
