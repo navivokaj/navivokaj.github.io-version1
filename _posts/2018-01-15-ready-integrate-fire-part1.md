@@ -13,12 +13,14 @@ Why did I choose LIF model? It’s a simple model. That’s it. In my journey to
 ## A first look at integrate-and-fire models
 
 The integrate-and-fire model was first proposed by the French neuroscientist Louis Lapicque in 1907. It is probably one of the simplest and commonly used mathematical models describing the basic electrical properties of a single neuron. (We’ll deal with the ‘leaky’ term later.) These properties are as follows:
-1. A neuron will typically fire an action potential when its membrane potential reaches a critical threshold, which is about -55 to -50 millivolts [mV].
-2. During the action potential, the membrane potential follows a quick, high trajectory and then immediately returns to a value that is hyperpolarized relative to the threshold potential.
+
+[1] A neuron will typically fire an action potential when its membrane potential reaches a critical threshold, which is about -55 to -50 millivolts [mV].
+
+[2] During the action potential, the membrane potential follows a quick, high trajectory and then immediately returns to a value that is hyperpolarized relative to the threshold potential.
 
 The integrate-and-fire model captures all these properties by carrying out the following golden rule:
 
-**Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$,the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.**
+*Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$,the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.*
 
 The above rule spells out how the model got its name: as the membrane potential accumulates (or integrates in continuous terms, much like what an integral does) up to the point-of-no-return (the threshold value), the neuron releases (aka fires) an action potential. Ready, integrate, fire!
 
@@ -32,9 +34,9 @@ As previously mentioned, integrate-and-fire models are concerned with subthresho
 
 ## The Leaky Integrate-and-Fire Model
 
-We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $$R_m$$, time constant $$\tau_m = R_mC_m$$ (where $$C_m$$ is the membrane’s capacitance), and resting potential $$E_L$$. Below the threshold value $$V_{th}$$, the equation for the voltage V(t) of this neuron when it receives a current injection $$I_e$$ is given by:
+We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $$R_m$$, time constant $$\tau_m = R_mC_m$$ (where $$C_m$$ is the membrane’s capacitance), and resting potential $$E_L$$. Below the threshold value $$V_{th}$$, the equation for the voltage $$V(t)$$ of this neuron when it receives a current injection $$I_e$$ is given by:
 
-$$ \tau_m \dfrac{dV}{dt} &= E_L - V + R_mI_e $$ (Eq 1)
+$$ \tau_m \dfrac{dV}{dt} = E_L - V + R_mI_e $$ (Eq 1)
 
 To generate action potentials, the above equation is augmented by the golden rule stated above: whenever $$V$$ reaches the threshold value $$V_{th}$$, an action potential is fired and the potential is reset to $$V_{reset}$$.
 
@@ -45,27 +47,40 @@ A thorough derivation of the equation and explanation of its terms will be provi
 Suppose we know the value of a neuron’s membrane potential at some reference point $$t_0$$. We denote this value as $$V(t_0)$$. We can then solve the analytical solution of the LIF model, which is just a first-order nonhomogeneous differential equation.
 
 We can use the [method of undetermined coefficients](http://www.math.poly.edu/courses/ma1112/ODE1.pdf) to solve this ODE. We first find a solution $$V_h(t)$$ for the homogeneous counterpart of the model. Rearranging terms in Eq 1, we have
-$$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e.$$  (Eq. 2)
-The right-hand side of the equation is just a constant, i.e. $tau_m \dfrac{dV}{dt} + V = f(t),$ where $f(t)=E_L + R_mI_e$. By setting $f(t)=0$, the homogeneous counterpart is given by
+
+$$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e$$  (Eq 2)
+
+The right-hand side of the equation is just a constant, i.e. $$tau_m \dfrac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
+
 $$\tau_m V’ + V = 0$$, or
+
 $$V’ = -\dfrac{V}{\tau_m}.$$
-By separation of variables (or just intuition), the solution to the above equation is simply $V_h (t) = A e^{-t/\tau_m}$, where $A$ is some constant.
 
-Next, we need to find a particular solution for Eq. 1. Since the right-hand side of the same equation Eq 2, is just a constant, we can stipulate that the particular solution is of the form $V_p (t) = c$, where $c$ is a constant. We can find the value of this constant by plugging the particular solution to Eq. 2. That is,
-$$\tau_m (c’) + c = E_L + R_mI_e$$
-$$ 0 + c = E_L + R_mI_e$$,
-and hence the particular solution is $V_p (t) = E_L + R_mI_e$.
+By separation of variables (or just intuition), the solution to the above equation is simply 
 
-The general solution for the nonhomogeneous differential equation Eq. 1 is expressed as the sum of the homogeneous solution $V_h (t)$ and the particular solution $V_p (t)$. That is, 
+$$V_h (t) = A e^{-t/\tau_m}$$, 
+
+where $$A$$ is some constant.
+
+Next, we need to find a particular solution for Eq 1. Since the right-hand side of Eq 2 is just a constant, we can stipulate that the particular solution is of the form $$V_p (t) = c$$, where $$c$$ is a constant. We can find the value of this constant by plugging the particular solution to Eq 2. That is,
+
+$$\begin{align} \tau_m (c’) + c &= E_L + R_mI_e \\ 0 + c &= E_L + R_mI_e \end{align}$$,
+
+and hence the particular solution is 
+
+$$V_p (t) = E_L + R_mI_e$$.
+
+The general solution for the nonhomogeneous differential equation Eq 1 is expressed as the sum of the homogeneous solution $$V_h (t)$$ and the particular solution $$V_p (t)$$. That is,
+
 $$V(t) = V_h (t) + V_p (t)$$
-$$V(t) = A e^{-t/\tau_m} + E_L + R_mI_e$$ (Eq. 3)
+$$V(t) = A e^{-t/\tau_m} + E_L + R_mI_e$$ (Eq 3)
 
 In order to find the exact value of the constant $A$ in the above equation, we simply use the initial condition that we know the value $V(t_0)$ of the neuron’s membrane potential at the reference point $t= t_0$:
 $$V(t_0) = A e^{-t_0/\tau_m} + E_L + R_mI_e$$
 $$A = [V(t_0) - E_L -R_mI_e]*e^{t_0/\tau_m}$$.
 
-Substituting this value in Eq. 3 and rearranging the terms, we have
-$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]*e^{\dfrac{-(t-t_0)}{\tau_m}},$$ (Eq. 4)
+Substituting this value in Eq 3 and rearranging the terms, we have
+$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]*e^{\dfrac{-(t-t_0)}{\tau_m}},$$ (Eq 4)
 which gives us the analytical solution to a leaky integrate-and-fire model when a constant current is injected to the neuron. We note that this solution is valid for the LIF model only as long as the membrane potential $V$ stays below the threshold $V_{th}$.
 
 For the math geeks out there, we could also use the Laplace transform to calculate the exact solution of the LIF model. In fact, I first used Laplace to solve it, but I decided to present the neater and simpler solution here.
@@ -84,9 +99,9 @@ $$t_{isi}=\tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_
 
 Therefore, the theoretical interspike-interval firing rate $r_{isi}$ is given by the inverse of $t_{isi}$:
 
-$$r_{isi} = \dfrac{1}{t_{isi}} = \displaystyle [ \tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \displaystyle )\displaystyle ] ^{-1}$$. (Eq. 5)
+$$r_{isi} = \dfrac{1}{t_{isi}} = \displaystyle [ \tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \displaystyle )\displaystyle ] ^{-1}$$. (Eq 5)
 
-We note that the above firing rate only exists for some range of values of the injected current $I_e$. We can get the domain of r_isi as follows:
+We note that the above firing rate only exists for some range of values of the injected current $I_e$. We can get the domain of $$r_isi$$ as follows:
 $$\dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} > 0$$, which gives us two cases:
 Case 1: $R_mI_e + E_L - V_{reset} > 0$ and $R_mI_e + E_L - V_{th} > 0$
 $$R_mI_e + E_L > V_{reset} \text{ and } R_mI_e + E_L > V_{th}.$$
@@ -101,7 +116,7 @@ $$R_mI_e + E_L < V_{reset}$$, or
 $$I_e < \dfrac{V_{reset}-E_L}{R_m}. $$
 We have to note that there is no negative membrane resistance and that $V_{reset}$  is always less than or equal to the resting potential $E_L$, making the right-hand side of the above inequality to be nonpositive. However, the injected current $I_e$ is always nonnegative, making the above inequality to be invalid.
 
-This therefore leads us to only consider the result of the first case. If we set the threshold current as $I_{th} = \dfrac{V_{th}-E_L}{R_m}$, then $r_{isi}$ is defined by Eq. 5 if the injected current $I_e$ is greater than $I_{th}$. Otherwise, the neuron will not fire and thus $r_{isi} = 0$.
+This therefore leads us to only consider the result of the first case. If we set the threshold current as $I_{th} = \dfrac{V_{th}-E_L}{R_m}$, then $r_{isi}$ is defined by Eq 5 if the injected current $I_e$ is greater than $I_{th}$. Otherwise, the neuron will not fire and thus $r_{isi} = 0$.
 Thus, the theoretical interspike-interval firing rate $r_{isi}$ is formally given by
 $$\begin{align*}
 r_{isi} =
@@ -115,6 +130,8 @@ So that concludes my first blog post. On the second one in this four-part series
 
 ## References
 
-1. Theoretical Neuroscience by Peter Dayan and L.F. Abbott
-2. Integrate-and-Fire Model Tutorial by the Goldman Lab at UC Davis ([link](http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf))
-3. Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post](https://www.coursera.org/account/accomplishments/records/L3L4JS3U6BDW)
+[1] Theoretical Neuroscience by Peter Dayan and L.F. Abbott
+
+[2] Integrate-and-Fire Model Tutorial by the Goldman Lab at UC Davis ([link](http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf))
+
+[3] Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post](https://www.coursera.org/account/accomplishments/records/L3L4JS3U6BDW)
