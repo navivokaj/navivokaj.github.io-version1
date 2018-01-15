@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ready, Integrate, Fire!’ Part 1: Solving a simple neuronal model"
+title: "'Ready, Integrate, Fire!’ Part 1: Solving a simple neuronal model"
 date: 2018-01-15
 ---
 
@@ -12,7 +12,7 @@ Why did I choose LIF model? It’s a simple model. That’s it. In my journey to
 
 ## A first look at integrate-and-fire models
 
-The integrate-and-fire model was first proposed by the French neuroscientist Louis Lapicque in 1907. It is probably one of the simplest and commonly used mathematical models describing the basic electrical properties of a single neuron. (We’ll deal with the ‘leaky’ term later.) These properties are as follows:
+The integrate-and-fire model was first proposed by the French neuroscientist Louis Lapicque in 1907. It is probably one of the simplest and most commonly used mathematical models describing the basic electrical properties of a single neuron. (We’ll deal with the ‘leaky’ term later.) These properties are as follows:
 
 [1] A neuron will typically fire an action potential when its membrane potential reaches a critical threshold, which is about -55 to -50 millivolts [mV].
 
