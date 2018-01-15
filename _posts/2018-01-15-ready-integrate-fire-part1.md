@@ -50,7 +50,7 @@ We can use the [method of undetermined coefficients](http://www.math.poly.edu/co
 
 $$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e \text{ (Eq 2)}$$  
 
-The right-hand side of the equation is just a constant, i.e. $$\tau_m \dfrac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
+The right-hand side of the equation is just a constant, i.e. $$\tau_m \frac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
 
 $$\begin{align} \tau_m V’ + V &= 0 \\ V’ &= -\dfrac{V}{\tau_m}. \end{align}$$
 
@@ -96,17 +96,19 @@ Solving for $$t_{isi}$$ from the above equation gives us
 
 $$t_{isi}=\tau_m\ln \Big( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \Big).$$
 
-Therefore, the theoretical interspike-interval firing rate $r_{isi}$ is given by the inverse of $t_{isi}$:
+Therefore, the theoretical interspike-interval firing rate $$r_{isi}$$ is given by the inverse of $$t_{isi}$$:
 
 $$r_{isi} = \dfrac{1}{t_{isi}} = \Big[ \tau_m\ln \Big( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \Big) \Big] ^{-1}. \text{ (Eq 5)}$$
 
-We note that the above firing rate only exists for some range of values of the injected current $$I_e$$. We can get the domain of $$r_isi$$ by solving the following inequality:
+We note that the above firing rate only exists for some range of values of the injected current $$I_e$$. We can get the domain of $$r_{isi}$$ by solving the following inequality:
 
 $$\dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} > 0$$
 
 This branches into two cases:
 
-*Case 1:* $$R_mI_e + E_L - V_{reset} > 0$$ and $$R_mI_e + E_L - V_{th} > 0$$
+*Case 1:* both numerator and denominator are positive 
+
+$$R_mI_e + E_L - V_{reset} > 0 \text{ and } R_mI_e + E_L - V_{th} > 0$$
 
 $$R_mI_e + E_L > V_{reset} \text{ and } R_mI_e + E_L > V_{th}.$$
 
@@ -114,7 +116,9 @@ But since $$V_{th} > V_{reset}$$, the above inequality reduces to
 
 $$\begin{align} R_mI_e + E_L &> V_{th}, \text{ or} \\ I_e &> \dfrac{V_{th}-E_L}{R_m}. \end{align} $$
 
-*Case 2:* $$R_mI_e + E_L - V_{reset} < 0$$ and $$R_mI_e + E_L - V_{th} < 0$$
+*Case 2:* both numerator and denominator are negative 
+
+$$R_mI_e + E_L - V_{reset} < 0 \text{ and } R_mI_e + E_L - V_{th} < 0$$
 
 $$R_mI_e + E_L < V_{reset} \text{ and } R_mI_e + E_L < V_{th}.$$
 
@@ -124,8 +128,8 @@ $$\begin{align} R_mI_e + E_L &< V_{reset}, \text{ or} \\ I_e &< \dfrac{V_{reset}
 
 We have to note that there is no negative membrane resistance and that $$V_{reset}$$  is always less than or equal to the resting potential $$E_L$$, making the right-hand side of the above inequality to be nonpositive. However, the injected current $$I_e$$ is always nonnegative, making the above inequality to be invalid.
 
-This therefore leads us to only consider the result of the first case. If we set the threshold current as $$I_{th} = \dfrac{V_{th}-E_L}{R_m}$$, then $$r_{isi}$$ is defined by Eq 5 if the injected current $$I_e$$ is greater than $$I_{th}$$. Otherwise, the neuron will not fire and thus $$r_{isi} = 0$$.
-Thus, the theoretical interspike-interval firing rate $$r_{isi}$$ is formally given by
+This therefore leads us to only consider the result of the first case. If we set the threshold current as $$I_{th} = \frac{V_{th}-E_L}{R_m}$$, then $$r_{isi}$$ is defined by Eq 5 if the injected current $$I_e$$ is greater than $$I_{th}$$. Otherwise, the neuron will not fire and thus $$r_{isi} = 0$$.Thus, the theoretical interspike-interval firing rate $$r_{isi}$$ is formally given by
+
 $$\begin{align}
 r_{isi} =
 \begin{cases}
