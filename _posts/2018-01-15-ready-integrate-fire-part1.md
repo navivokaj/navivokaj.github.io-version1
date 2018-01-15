@@ -4,45 +4,49 @@ title: "Ready, Integrate, Fire!’ Part 1: Solving a simple neuronal model"
 date: 2018-01-15
 ---
 
-For my first blog post, I will be finding the analytical solution of a leaky integrate-and-fire (LIF) model of a neuron under a constant input current. Too much to handle? Read more to find out! (This is Part 1 of a series of four posts on LIF model)
+*For my first blog post, I will be finding the analytical solution of a leaky integrate-and-fire (LIF) model of a neuron under a constant input current. Too much to handle? Read more to find out! (This is Part 1 of a series of four posts on LIF model)*
 
 My love for numbers has sparked my interest on how I can use mathematics to model the complex processes happening inside the human brain. So when I created this blog, I wanted to start with modelling just a single neuron—the building block of our brains. The model I chose to focus on comes in an intriguing (and somehow provocative!) name: leaky integrate-and-fire (LIF) model.
 
 Why did I choose LIF model? It’s a simple model. That’s it. In my journey to becoming a computational neuroscientist, I have to start with understanding the basic models in the field of neuroscience. Despite its ‘simplicity’, I delved a lot into this model, and I even think that it deserves more spotlight that I decided to dedicate my first four blog posts on this single model! For my first blog post, I will be finding the analytical solution of a leaky integrate-and-fire (LIF) model of a neuron under a static input current. Ready to know more? Let’s start! 
 
-A first look at integrate-and-fire models
+## A first look at integrate-and-fire models
 
 The integrate-and-fire model was first proposed by the French neuroscientist Louis Lapicque in 1907. It is probably one of the simplest and commonly used mathematical models describing the basic electrical properties of a single neuron. (We’ll deal with the ‘leaky’ term later.) These properties are as follows:
-	1. A neuron will typically fire an action potential when its membrane potential reaches a critical threshold, which is about -55 to -50 millivolts [mV].
-	2. During the action potential, the membrane potential follows a quick, high trajectory and then immediately returns to a value that is hyperpolarized relative to the threshold potential.
+1. A neuron will typically fire an action potential when its membrane potential reaches a critical threshold, which is about -55 to -50 millivolts [mV].
+2. During the action potential, the membrane potential follows a quick, high trajectory and then immediately returns to a value that is hyperpolarized relative to the threshold potential.
 
 The integrate-and-fire model captures all these properties by carrying out the following golden rule:
-	Whenever the membrane potential of the model neuron reaches a threshold value $V_{th}$, the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $V_{reset}$ below the threshold potential, $V_{reset} < V_{th}$.
+
+	Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$, 
+	the neuron fires an action potential. After the action potential, the membrane potential 
+	is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.
 
 The above rule spells out how the model got its name: as the membrane potential accumulates (or integrates in continuous terms, much like what an integral does) up to the point-of-no-return (the threshold value), the neuron releases (aka fires) an action potential. Ready, integrate, fire!
 
-The model’s strengths and weaknesses
+## The model’s strengths and weaknesses
 
-Of course, having a simple model means that one must forego incorporating complex properties that would make the neuronal model more realistic. The integrate-and-fire model comes with the limitation of not including the biophysical mechanisms responsible for action potentials, such as ion channel kinetics. Despite this, the model is still an extremely useful one as it focuses on modelling the subthreshold potential dynamics. As stated in this paper created by the Goldman Lab at UC Davis [http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf], another reason why we can let go of the biophysical properties in modelling a neuron is that we are not too much interested with the exact shape of an action potential, and the only informative feature we can probably get from a neuron’s spiking is the exact times at which action potentials occur.
+Of course, having a simple model means that one must forego incorporating complex properties that would make the neuronal model more realistic. The integrate-and-fire model comes with the limitation of not including the biophysical mechanisms responsible for action potentials, such as ion channel kinetics. Despite this, the model is still an extremely useful one as it focuses on modelling the subthreshold potential dynamics. As stated in [this paper created by the Goldman Lab at UC Davis](http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf), another reason why we can let go of the biophysical properties in modelling a neuron is that we are not too much interested with the exact shape of an action potential, and the only informative feature we can probably get from a neuron’s spiking is the exact times at which action potentials occur.
 
-So what’s up with a ‘leaky’ neuron?
+## So what’s up with a ‘leaky’ neuron?
 
 As previously mentioned, integrate-and-fire models are concerned with subthreshold membrane potential dynamics, and this can be done with various levels of modelling rigor. The simplest version of these models is called the leaky (or passive) integrate-and-fire model. Under this LIF model, all active membrane conductances are ignored, including, for the moment, synaptic inputs. Moreover, the entire membrane conductance is modelled as a single passive leakage term, making the model neuron ‘leaky’.  For small fluctuations about the resting membrane potential, neuronal conductances are approximately constant, and the LIF model assumes that this constancy holds over the entire subthreshold range. However, this assumption is reasonable only for some neurons.
 
-The Leaky Integrate-and-Fire Model
+## The Leaky Integrate-and-Fire Model
 
-We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $R_m$, time constant $\tau_m = R_mC_m$ (where $C_m$ is the membrane’s capacitance), and resting potential $E_L$. Below the threshold value $V_{th}$, the equation for the voltage V(t) of this neuron when it receives a current injection I_e is given by:
-$$tau_m \dfrac{dV}{dt} = E_L - V + R_mI_e$$. (Eq 1)
+We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $$R_m$$, time constant $$\tau_m = R_mC_m$$ (where $$C_m$$ is the membrane’s capacitance), and resting potential $$E_L$$. Below the threshold value $$V_{th}$$, the equation for the voltage V(t) of this neuron when it receives a current injection $$I_e$$ is given by:
 
-To generate action potentials, the above equation is augmented by the golden rule stated above: whenever $V$ reaches the threshold value $V_{th}$, an action potential is fired and the potential is reset to $V_{reset}$.
+$$\begin{align} tau_m \dfrac{dV}{dt} &= E_L - V + R_mI_e \end{align}$$.
+
+To generate action potentials, the above equation is augmented by the golden rule stated above: whenever $$V$$ reaches the threshold value $$V_{th}$$, an action potential is fired and the potential is reset to $$V_{reset}$$.
 
 A thorough derivation of the equation and explanation of its terms will be provided in Part 3 of this LIF series. For now, our concern is on finding the analytical solution of the leaky integrate-and-fire model in response to a constant injected current. 
 
-Solving the LIF Model
+## Solving the LIF Model
 
-Suppose we know the value of a neuron’s membrane potential at some reference point $t_0$. We denote this value as $V(t_0)$. We can then solve the analytical solution of the LIF model, which is just a first-order nonhomogeneous differential equation.
+Suppose we know the value of a neuron’s membrane potential at some reference point $$t_0$$. We denote this value as $$V(t_0)$$. We can then solve the analytical solution of the LIF model, which is just a first-order nonhomogeneous differential equation.
 
-We can use the method of undetermined coefficients [http://www.math.poly.edu/courses/ma1112/ODE1.pdf] to solve this ODE. We first find a solution $V_h(t)$ for the homogeneous counterpart of the model. Rearranging terms in Eq 1, we have
+We can use the [method of undetermined coefficients](http://www.math.poly.edu/courses/ma1112/ODE1.pdf) to solve this ODE. We first find a solution $$V_h(t)$$ for the homogeneous counterpart of the model. Rearranging terms in Eq 1, we have
 $$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e.$$  (Eq. 2)
 The right-hand side of the equation is just a constant, i.e. $tau_m \dfrac{dV}{dt} + V = f(t),$ where $f(t)=E_L + R_mI_e$. By setting $f(t)=0$, the homogeneous counterpart is given by
 $$\tau_m V’ + V = 0$$, or
@@ -68,7 +72,7 @@ which gives us the analytical solution to a leaky integrate-and-fire model when 
 
 For the math geeks out there, we could also use the Laplace transform to calculate the exact solution of the LIF model. In fact, I first used Laplace to solve it, but I decided to present the neater and simpler solution here.
 
-Calculating the theoretical firing rate
+## Calculating the theoretical firing rate
 
 We can also compute the theoretical firing rate of a leaky integrate-and-fire model neuron in response to a static input current. The firing rate of a neuron is defined as the number of spikes it fires per second [measured in Hz]. We can calculate it by determining the interspike interval $t_{isi}$, which is the amount of time between two consecutive spikes. The interspike-interval firing rate is then simply 1 over $t_{isi}$, indicating that the LIF model fires once over the interspike interval.
 
@@ -111,8 +115,8 @@ r_{isi} =
 
 So that concludes my first blog post. On the second one in this four-part series, I will simulate the leaky integrate-and-fire model using Python and verify the theoretical interspike-interval firing rate we just computed. ’Til next time, brain folks!
 
-References
+## References
 
-[1] Theoretical Neuroscience by Peter Dayan and L.F. Abbott
-[2] Integrate-and-Fire Model Tutorial by the Goldman Lab at UC Davis (link[http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf])
-[3] Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post]
+1. Theoretical Neuroscience by Peter Dayan and L.F. Abbott
+2. Integrate-and-Fire Model Tutorial by the Goldman Lab at UC Davis ([link](http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf))
+3. Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post](https://www.coursera.org/account/accomplishments/records/L3L4JS3U6BDW)
