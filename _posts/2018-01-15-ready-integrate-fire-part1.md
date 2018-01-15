@@ -50,9 +50,9 @@ We can use the [method of undetermined coefficients](http://www.math.poly.edu/co
 
 $$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e \text{ (Eq 2)}$$  
 
-The right-hand side of the equation is just a constant, i.e. $$tau_m \dfrac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
+The right-hand side of the equation is just a constant, i.e. $$\tau_m \dfrac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
 
-$$\begin{align} \tau_m V’ + V &= 0 \\ V’ &= -\dfrac{V}{\tau_m} \end{align}$$.
+$$\begin{align} \tau_m V’ + V &= 0 \\ V’ &= -\dfrac{V}{\tau_m}. \end{align}$$
 
 By separation of variables (or just intuition), the solution to the above equation is simply 
 
@@ -78,7 +78,7 @@ $$\begin{align} V(t_0) &= A e^{-t_0/\tau_m} + E_L + R_mI_e \\ A &= [V(t_0) - E_L
 
 Substituting this value in Eq 3 and rearranging the terms, we have
 
-$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]e^{\dfrac{-(t-t_0)}{\tau_m}}, \text{ (Eq 4)}$$ 
+$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]e^{-(t-t_0)/\tau_m}, \text{ (Eq 4)}$$ 
 
 which gives us the analytical solution to a leaky integrate-and-fire model when a constant current is injected to the neuron. We note that this solution is valid for the LIF model only as long as the membrane potential $$V$$ stays below the threshold $$V_{th}$$.
 
@@ -86,44 +86,53 @@ For the math geeks out there, we could also use the Laplace transform to calcula
 
 ## Calculating the theoretical firing rate
 
-We can also compute the theoretical firing rate of a leaky integrate-and-fire model neuron in response to a static input current. The firing rate of a neuron is defined as the number of spikes it fires per second [measured in Hz]. We can calculate it by determining the interspike interval $t_{isi}$, which is the amount of time between two consecutive spikes. The interspike-interval firing rate is then simply 1 over $t_{isi}$, indicating that the LIF model fires once over the interspike interval.
+We can also compute the theoretical firing rate of a leaky integrate-and-fire model neuron in response to a static input current. The firing rate of a neuron is defined as the number of spikes it fires per second [measured in Hz]. We can calculate it by determining the interspike interval $$t_{isi}$$, which is the amount of time between two consecutive spikes. The interspike-interval firing rate is then simply 1 over $$t_{isi}$$, indicating that the LIF model fires once over the interspike interval.
 
-Suppose that at reference point $t = t_0$, the neuron has just fired an action potential and is thus reset to the value $V_{reset}$, i.e. $V(t_0) = V_{reset}$. The next spike will then occur after $t_isi$ unit of time, that is, at time $t=t_0 + t_{isi}$. At this time, the membrane potential reaches the threshold $V_{th}$, and thus we have
+Suppose that at reference point $$t = t_0$$, the neuron has just fired an action potential and is thus reset to the value $$V_{reset}$$, i.e. $$V(t_0) = V_{reset}$$. The next spike will then occur after $$t_isi$$ unit of time, that is, at time $$t=t_0 + t_{isi}$$. At this time, the membrane potential reaches the threshold $$V_{th}$$, and thus we have
 
-$$V(t_0 + t_{isi}) = V_{th} = E_L + R_mI_e + [V_{reset} - E_L -R_mI_e]e^{-t_{isi}/\tau_m}$$.
+$$V(t_0 + t_{isi}) = V_{th} = E_L + R_mI_e + [V_{reset} - E_L -R_mI_e]e^{-t_{isi}/\tau_m}.$$
 
-Solving for $t_{isi}$ from the above equation gives us
+Solving for $$t_{isi}$$ from the above equation gives us
 
-$$t_{isi}=\tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \displaystyle )$$.
+$$t_{isi}=\tau_m\ln \Big( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \Big).$$
 
 Therefore, the theoretical interspike-interval firing rate $r_{isi}$ is given by the inverse of $t_{isi}$:
 
-$$r_{isi} = \dfrac{1}{t_{isi}} = \displaystyle [ \tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \displaystyle )\displaystyle ] ^{-1}$$. (Eq 5)
+$$r_{isi} = \dfrac{1}{t_{isi}} = \Big[ \tau_m\ln \Big( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \Big) \Big] ^{-1}. \text{ (Eq 5)}$$
 
-We note that the above firing rate only exists for some range of values of the injected current $I_e$. We can get the domain of $$r_isi$$ as follows:
-$$\dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} > 0$$, which gives us two cases:
-Case 1: $R_mI_e + E_L - V_{reset} > 0$ and $R_mI_e + E_L - V_{th} > 0$
+We note that the above firing rate only exists for some range of values of the injected current $$I_e$$. We can get the domain of $$r_isi$$ by solving the following inequality:
+
+$$\dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} > 0$$
+
+This branches into two cases:
+
+*Case 1:* $$R_mI_e + E_L - V_{reset} > 0$$ and $$R_mI_e + E_L - V_{th} > 0$$
+
 $$R_mI_e + E_L > V_{reset} \text{ and } R_mI_e + E_L > V_{th}.$$
-But since $V_{th} > V_{reset}$, the above inequality reduces to 
-$$R_mI_e + E_L > V_{th}$$, or 
-$$I_e > \dfrac{V_{th}-E_L}{R_m}. $$
 
-Case 2: $R_mI_e + E_L - V_{reset} < 0$ and $R_mI_e + E_L - V_{th} < 0$
+But since $$V_{th} > V_{reset}$$, the above inequality reduces to
+
+$$\begin{align} R_mI_e + E_L &> V_{th}, \text{ or} \\ I_e &> \dfrac{V_{th}-E_L}{R_m}. \end{align} $$
+
+*Case 2:* $$R_mI_e + E_L - V_{reset} < 0$$ and $$R_mI_e + E_L - V_{th} < 0$$
+
 $$R_mI_e + E_L < V_{reset} \text{ and } R_mI_e + E_L < V_{th}.$$
-But since $V_{reset} < V_{th}$, the above condition reduces to 
-$$R_mI_e + E_L < V_{reset}$$, or 
-$$I_e < \dfrac{V_{reset}-E_L}{R_m}. $$
-We have to note that there is no negative membrane resistance and that $V_{reset}$  is always less than or equal to the resting potential $E_L$, making the right-hand side of the above inequality to be nonpositive. However, the injected current $I_e$ is always nonnegative, making the above inequality to be invalid.
 
-This therefore leads us to only consider the result of the first case. If we set the threshold current as $I_{th} = \dfrac{V_{th}-E_L}{R_m}$, then $r_{isi}$ is defined by Eq 5 if the injected current $I_e$ is greater than $I_{th}$. Otherwise, the neuron will not fire and thus $r_{isi} = 0$.
-Thus, the theoretical interspike-interval firing rate $r_{isi}$ is formally given by
-$$\begin{align*}
+But since $$V_{reset} < V_{th}$$, the above condition reduces to
+
+$$\begin{align} R_mI_e + E_L &< V_{reset}, \text{ or} \\ I_e &< \dfrac{V_{reset}-E_L}{R_m}. \end{align} $$
+
+We have to note that there is no negative membrane resistance and that $$V_{reset}$$  is always less than or equal to the resting potential $$E_L$$, making the right-hand side of the above inequality to be nonpositive. However, the injected current $$I_e$$ is always nonnegative, making the above inequality to be invalid.
+
+This therefore leads us to only consider the result of the first case. If we set the threshold current as $$I_{th} = \dfrac{V_{th}-E_L}{R_m}$$, then $$r_{isi}$$ is defined by Eq 5 if the injected current $$I_e$$ is greater than $$I_{th}$$. Otherwise, the neuron will not fire and thus $$r_{isi} = 0$$.
+Thus, the theoretical interspike-interval firing rate $$r_{isi}$$ is formally given by
+$$\begin{align}
 r_{isi} =
 \begin{cases}
- \displaystyle [ \tau_m\ln \displaystyle ( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \displaystyle )\displaystyle ] ^{-1} &\text{ if } I_e > I_{th} = \dfrac{V_{th}-E_L}{R_m}  \\
+ \Big[ \tau_m\ln \Big( \dfrac{R_mI_e + E_L - V_{reset}}{R_mI_e + E_L - V_{th}} \Big)\Big] ^{-1} &\text{ if } I_e > I_{th} = \dfrac{V_{th}-E_L}{R_m}  \\
   0 &\text{ if } I_e \leq I_{th}.
  \end{cases}
- \end{align*}$$
+ \end{align}$$
 
 So that concludes my first blog post. On the second one in this four-part series, I will simulate the leaky integrate-and-fire model using Python and verify the theoretical interspike-interval firing rate we just computed. ’Til next time, brain folks!
 
