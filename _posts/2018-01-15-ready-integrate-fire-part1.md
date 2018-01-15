@@ -4,7 +4,7 @@ title: "'Ready, Integrate, Fire!’ Part 1: Solving a simple neuronal model"
 date: 2018-01-15
 ---
 
-*For my first blog post, I will be finding the analytical solution of a leaky integrate-and-fire (LIF) model of a neuron under a constant input current. Too much to handle? Read more to find out! (This is Part 1 of a series of four posts on LIF model)*
+*For my first blog post, I will find the analytical solution of a leaky integrate-and-fire (LIF) model of a neuron under a constant injected current. Too much to handle? Read more to find out! (This is Part 1 of a series of four posts on LIF model)*
 
 My love for numbers has sparked my interest on how I can use mathematics to model the complex processes happening inside the human brain. So when I created this blog, I wanted to start with modelling just a single neuron—the building block of our brains. The model I chose to focus on comes in an intriguing (and somehow provocative!) name: leaky integrate-and-fire (LIF) model.
 
