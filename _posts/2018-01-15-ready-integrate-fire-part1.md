@@ -20,7 +20,7 @@ The integrate-and-fire model was first proposed by the French neuroscientist Lou
 
 The integrate-and-fire model captures all these properties by carrying out the following golden rule:
 
-*Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$,the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.*
+*Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$, the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.*
 
 The above rule spells out how the model got its name: as the membrane potential accumulates (or integrates in continuous terms, much like what an integral does) up to the point-of-no-return (the threshold value), the neuron releases (aka fires) an action potential. Ready, integrate, fire!
 
@@ -36,7 +36,7 @@ As previously mentioned, integrate-and-fire models are concerned with subthresho
 
 We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $$R_m$$, time constant $$\tau_m = R_mC_m$$ (where $$C_m$$ is the membrane’s capacitance), and resting potential $$E_L$$. Below the threshold value $$V_{th}$$, the equation for the voltage $$V(t)$$ of this neuron when it receives a current injection $$I_e$$ is given by:
 
-$$ \tau_m \dfrac{dV}{dt} = E_L - V + R_mI_e $$ (Eq 1)
+$$ \tau_m \dfrac{dV}{dt} = E_L - V + R_mI_e \text{ (Eq 1)} $$ 
 
 To generate action potentials, the above equation is augmented by the golden rule stated above: whenever $$V$$ reaches the threshold value $$V_{th}$$, an action potential is fired and the potential is reset to $$V_{reset}$$.
 
@@ -48,40 +48,39 @@ Suppose we know the value of a neuron’s membrane potential at some reference p
 
 We can use the [method of undetermined coefficients](http://www.math.poly.edu/courses/ma1112/ODE1.pdf) to solve this ODE. We first find a solution $$V_h(t)$$ for the homogeneous counterpart of the model. Rearranging terms in Eq 1, we have
 
-$$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e$$  (Eq 2)
+$$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e \text{ (Eq 2)}$$  
 
 The right-hand side of the equation is just a constant, i.e. $$tau_m \dfrac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
 
-$$\tau_m V’ + V = 0$$, or
-
-$$V’ = -\dfrac{V}{\tau_m}.$$
+$$\begin{align} \tau_m V’ + V &= 0 \\ V’ &= -\dfrac{V}{\tau_m} \end{align}$$.
 
 By separation of variables (or just intuition), the solution to the above equation is simply 
 
-$$V_h (t) = A e^{-t/\tau_m}$$, 
+$$V_h (t) = A e^{-t/\tau_m},$$ 
 
 where $$A$$ is some constant.
 
 Next, we need to find a particular solution for Eq 1. Since the right-hand side of Eq 2 is just a constant, we can stipulate that the particular solution is of the form $$V_p (t) = c$$, where $$c$$ is a constant. We can find the value of this constant by plugging the particular solution to Eq 2. That is,
 
-$$\begin{align} \tau_m (c’) + c &= E_L + R_mI_e \\ 0 + c &= E_L + R_mI_e \end{align}$$,
+$$\begin{align} \tau_m (c’) + c &= E_L + R_mI_e \\ 0 + c &= E_L + R_mI_e, \end{align}$$
 
 and hence the particular solution is 
 
-$$V_p (t) = E_L + R_mI_e$$.
+$$V_p (t) = E_L + R_mI_e.$$
 
 The general solution for the nonhomogeneous differential equation Eq 1 is expressed as the sum of the homogeneous solution $$V_h (t)$$ and the particular solution $$V_p (t)$$. That is,
 
-$$V(t) = V_h (t) + V_p (t)$$
-$$V(t) = A e^{-t/\tau_m} + E_L + R_mI_e$$ (Eq 3)
+$$\begin{align} V(t) &= V_h (t) + V_p (t) \\ V(t) &= A e^{-t/\tau_m} + E_L + R_mI_e \text{ (Eq 3)} \end{align}$$ 
 
-In order to find the exact value of the constant $A$ in the above equation, we simply use the initial condition that we know the value $V(t_0)$ of the neuron’s membrane potential at the reference point $t= t_0$:
-$$V(t_0) = A e^{-t_0/\tau_m} + E_L + R_mI_e$$
-$$A = [V(t_0) - E_L -R_mI_e]*e^{t_0/\tau_m}$$.
+In order to find the exact value of the constant $$A$$ in the above equation, we simply use the initial condition that we know the value $$V(t_0)$$ of the neuron’s membrane potential at the reference point $$t= t_0$$:
+
+$$\begin{align} V(t_0) &= A e^{-t_0/\tau_m} + E_L + R_mI_e \\ A &= [V(t_0) - E_L -R_mI_e]e^{t_0/\tau_m}. \end{align}$$
 
 Substituting this value in Eq 3 and rearranging the terms, we have
-$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]*e^{\dfrac{-(t-t_0)}{\tau_m}},$$ (Eq 4)
-which gives us the analytical solution to a leaky integrate-and-fire model when a constant current is injected to the neuron. We note that this solution is valid for the LIF model only as long as the membrane potential $V$ stays below the threshold $V_{th}$.
+
+$$V(t) = E_L + R_mI_e + [V(t_0) - E_L -R_mI_e]e^{\dfrac{-(t-t_0)}{\tau_m}}, \text{ (Eq 4)}$$ 
+
+which gives us the analytical solution to a leaky integrate-and-fire model when a constant current is injected to the neuron. We note that this solution is valid for the LIF model only as long as the membrane potential $$V$$ stays below the threshold $$V_{th}$$.
 
 For the math geeks out there, we could also use the Laplace transform to calculate the exact solution of the LIF model. In fact, I first used Laplace to solve it, but I decided to present the neater and simpler solution here.
 
@@ -91,7 +90,7 @@ We can also compute the theoretical firing rate of a leaky integrate-and-fire mo
 
 Suppose that at reference point $t = t_0$, the neuron has just fired an action potential and is thus reset to the value $V_{reset}$, i.e. $V(t_0) = V_{reset}$. The next spike will then occur after $t_isi$ unit of time, that is, at time $t=t_0 + t_{isi}$. At this time, the membrane potential reaches the threshold $V_{th}$, and thus we have
 
-$$V(t_0 + t_{isi}) = V_{th} = E_L + R_mI_e + [V_{reset} - E_L -R_mI_e]*e^{-t_{isi}/\tau_m}$$.
+$$V(t_0 + t_{isi}) = V_{th} = E_L + R_mI_e + [V_{reset} - E_L -R_mI_e]e^{-t_{isi}/\tau_m}$$.
 
 Solving for $t_{isi}$ from the above equation gives us
 
