@@ -18,9 +18,7 @@ The integrate-and-fire model was first proposed by the French neuroscientist Lou
 
 The integrate-and-fire model captures all these properties by carrying out the following golden rule:
 
-	Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$, 
-	the neuron fires an action potential. After the action potential, the membrane potential 
-	is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.
+**Whenever the membrane potential of the model neuron reaches a threshold value $$V_{th}$$,the neuron fires an action potential. After the action potential, the membrane potential is reset to a value $$V_{reset}$$ below the threshold potential, $$V_{reset} < V_{th}$$.**
 
 The above rule spells out how the model got its name: as the membrane potential accumulates (or integrates in continuous terms, much like what an integral does) up to the point-of-no-return (the threshold value), the neuron releases (aka fires) an action potential. Ready, integrate, fire!
 
@@ -36,7 +34,7 @@ As previously mentioned, integrate-and-fire models are concerned with subthresho
 
 We are now ready to formally state the LIF model. Consider a neuron modelled as a leaky capacitor with membrane resistance $$R_m$$, time constant $$\tau_m = R_mC_m$$ (where $$C_m$$ is the membrane’s capacitance), and resting potential $$E_L$$. Below the threshold value $$V_{th}$$, the equation for the voltage V(t) of this neuron when it receives a current injection $$I_e$$ is given by:
 
-$$\begin{align} tau_m \dfrac{dV}{dt} &= E_L - V + R_mI_e \end{align}$$.
+$$ \tau_m \dfrac{dV}{dt} &= E_L - V + R_mI_e $$ (Eq 1)
 
 To generate action potentials, the above equation is augmented by the golden rule stated above: whenever $$V$$ reaches the threshold value $$V_{th}$$, an action potential is fired and the potential is reset to $$V_{reset}$$.
 
