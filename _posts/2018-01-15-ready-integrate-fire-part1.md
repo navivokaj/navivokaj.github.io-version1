@@ -88,7 +88,7 @@ For the math geeks out there, we could also use the Laplace transform to calcula
 
 We can also compute the theoretical firing rate of a leaky integrate-and-fire model neuron in response to a static input current. The firing rate of a neuron is defined as the number of spikes it fires per second [measured in Hz]. We can calculate it by determining the interspike interval $$t_{isi}$$, which is the amount of time between two consecutive spikes. The interspike-interval firing rate is then simply 1 over $$t_{isi}$$, indicating that the LIF model fires once over the interspike interval.
 
-Suppose that at reference point $$t = t_0$$, the neuron has just fired an action potential and is thus reset to the value $$V_{reset}$$, i.e. $$V(t_0) = V_{reset}$$. The next spike will then occur after $$t_isi$$ unit of time, that is, at time $$t=t_0 + t_{isi}$$. At this time, the membrane potential reaches the threshold $$V_{th}$$, and thus we have
+Suppose that at reference point $$t = t_0$$, the neuron has just fired an action potential and is thus reset to the value $$V_{reset}$$, i.e. $$V(t_0) = V_{reset}$$. The next spike will then occur after $$t_{isi}$$ unit of time, that is, at time $$t=t_0 + t_{isi}$$. At this time, the membrane potential reaches the threshold $$V_{th}$$, and thus we have
 
 $$V(t_0 + t_{isi}) = V_{th} = E_L + R_mI_e + [V_{reset} - E_L -R_mI_e]e^{-t_{isi}/\tau_m}.$$
 
