@@ -44,13 +44,13 @@ A thorough derivation of the equation and explanation of its terms will be provi
 
 ## Solving the LIF Model
 
-Suppose we know the value of a neuron’s membrane potential at some reference point $$t_0$$. We denote this value as $$V(t_0)$$. We can then solve the analytical solution of the LIF model, which is just a first-order nonhomogeneous differential equation.
+Suppose we know the value of a neuron’s membrane potential at some reference point $$t_0$$. We denote this value as $$V(t_0)$$. We can then compute the analytical solution of the LIF model, which is just a first-order nonhomogeneous differential equation.
 
 We can use the [method of undetermined coefficients](http://www.math.poly.edu/courses/ma1112/ODE1.pdf) to solve this ODE. We first find a solution $$V_h(t)$$ for the homogeneous counterpart of the model. Rearranging terms in Eq 1, we have
 
 $$\tau_m \dfrac{dV}{dt} + V = E_L + R_mI_e \text{ (Eq 2)}$$  
 
-The right-hand side of the equation is just a constant, i.e. $$\tau_m \frac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
+Since the input current $$I_e$$ is assumed to be constant, the right-hand side of the equation also turns out to be a constant, i.e. $$\tau_m \frac{dV}{dt} + V = f(t),$$ where $$f(t)=E_L + R_mI_e$$. By setting $$f(t)=0$$, the homogeneous counterpart is given by
 
 $$\begin{align} \tau_m V’ + V &= 0 \\ V’ &= -\dfrac{V}{\tau_m}. \end{align}$$
 
@@ -146,4 +146,4 @@ So that concludes my first blog post. On the second one in this four-part series
 
 [2] Integrate-and-Fire Model Tutorial by the Goldman Lab at UC Davis ([link](http://neuroscience.ucdavis.edu/goldman/Tutorials_files/Integrate&Fire.pdf))
 
-[3] Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post](https://www.coursera.org/account/accomplishments/records/L3L4JS3U6BDW)
+[3] Computational Neuroscience course offered by University of Washington on Coursera [which I just completed! YAY! I’ll write more about my experience on another blog post :)](https://www.coursera.org/account/accomplishments/records/L3L4JS3U6BDW)
